@@ -122,6 +122,8 @@ export default function Form() {
             <TextField
               label="Descripción del presupuesto"
               size="small"
+              multiline
+              rows={2}
               fullWidth
             />
           </Grid>
