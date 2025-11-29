@@ -56,6 +56,7 @@ export default function Form() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               label="Email"
+              type="email"
               size="small"
               fullWidth
             />
