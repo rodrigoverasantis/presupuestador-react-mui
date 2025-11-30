@@ -9,7 +9,10 @@ export default function App() {
 
   return (
     <Container maxWidth="md">
-      <Form />
+      <Form
+        form={useApp.form}
+        setForm={useApp.setForm}
+      />
       <Items
         items={useApp.items}
         handleAgregar={useApp.handleAgregar}
