@@ -1,4 +1,4 @@
-export interface Form {
+export interface FormInterface {
   cliente: string;
   empresa: string;
   rut: string;
@@ -10,20 +10,25 @@ export interface Form {
   moneda: null;
   descuento: number;
   fechaEmision: Date;
-  fechaVencimiento: Date;
+  fechaVencimiento: Date | null;
   descripcion: string;
 }
 
-export interface Item {
+export interface ItemInterface {
   name: string;
   quantity: number;
   price: number;
   link: string;
 }
 
+export interface FormProps {
+  form: FormInterface;
+  setForm: (form: FormInterface) => void;
+}
+
 export interface ItemsProps {
-  items: Array<Item>;
+  items: Array<ItemInterface>;
   handleAgregar: () => void;
   handleEliminar: (itemIndex: number) => void;
-  handleEditar: (itemIndex: number, editedItem: Item) => void;
+  handleEditar: (itemIndex: number, editedItem: ItemInterface) => void;
 }
