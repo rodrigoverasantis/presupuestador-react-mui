@@ -1,129 +1,104 @@
-import { useState } from "react";
+import { Fragment } from "react";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Chip,
-  Divider,
   Grid,
   IconButton,
+  Paper,
   TextField,
   Tooltip,
-  Typography,
 } from "@mui/material";
-import { Delete, ExpandMore } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
+import type { ItemsProps } from "../interfaces";
+import { FormatoDinero } from "../utils";
 
-export default function Items() {
-  const [items, setItems] = useState<Item[]>([]);
-
-  const handleAgregar = () => {
-    const newItem = {
-      id: items.length + 1,
-      name: "",
-      quantity: 0,
-      price: 0,
-      link: "",
-    }
-    setItems([...items, newItem]);
-  }
-
-  const handleEliminar = (itemIndex: number) => {
-    const filteredItems = items.filter((_, index) => index !== itemIndex);
-    setItems(filteredItems);
-  }
-
-  const handleEditar = (itemIndex: number, editedItem: Item) => {
-    const editedItems = items.map((item, index) => index === itemIndex ? editedItem : item);
-    setItems(editedItems);
-  }
+export default function Items(props: ItemsProps) {
 
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography component="span">
-          Elementos del presupuesto
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Button
-          onClick={handleAgregar}
-          color="primary"
-          variant="contained"
-        >
-          Agregar elemento
-        </Button>
-        {items.map((item, index) => (
-          <Grid container spacing={2} key={item.id} sx={{ my: 2 }}>
-            <Grid size={12}>
-              <Box display={"flex"} justifyContent={"space-between"}>
-                <Chip label={`Elemento #${index + 1}`} />
+    <>
+      <Button
+        onClick={props.handleAgregar}
+        color="primary"
+        variant="contained"
+      >
+        Agregar elemento
+      </Button>
+      {props.items.map((item, index) => (
+        <Fragment key={`elemento_${index}`}>
+          <Paper elevation={5} sx={{ p: 2, my: 2, borderRadius: 4 }}>
+            <Grid container spacing={2}>
+              <Grid size={12}>
+                <Box display={"flex"} justifyContent={"space-between"}>
+                  <Chip
+                    label={`Elemento #${index + 1}`}
+                    size="medium"
+                  />
 
-                <Tooltip title="Eliminar">
-                  <IconButton onClick={() => handleEliminar(index)}>
-                    <Delete />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </Grid>
-            <Grid size={{ xs: 12, sm: 7 }}>
-              <TextField
-                label="Nombre"
-                value={item.name}
-                onChange={(e) => handleEditar(index, { ...item, name: e.target.value })}
-                size="small"
-                fullWidth
-              />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 2 }}>
-              <TextField
-                label="Cantidad"
-                value={item.quantity}
-                onChange={(e) => handleEditar(index, { ...item, quantity: parseInt(e.target.value) })}
-                type="number"
-                size="small"
-                fullWidth
-              />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 3 }}>
-              <TextField
-                label="Precio"
-                value={item.price}
-                onChange={(e) => handleEditar(index, { ...item, price: parseFloat(e.target.value) })}
-                type="number"
-                size="small"
-                fullWidth
-              />
-            </Grid>
-            <Grid size={12}>
-              <TextField
-                label="Link (opcional)"
-                value={item.link}
-                onChange={(e) => handleEditar(index, { ...item, link: e.target.value })}
-                type="url"
-                size="small"
-                fullWidth
-              />
-            </Grid>
-
-            {/* SEPARADOR DE FILAS */}
-            {index < items.length - 1 && (
-              <Grid size={{ xs: 12 }}>
-                <Divider orientation="horizontal" flexItem />
+                  <Tooltip title="Eliminar">
+                    <IconButton onClick={() => props.handleEliminar(index)}>
+                      <Delete />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Grid>
-            )}
-          </Grid>
-        ))}
-      </AccordionDetails>
-    </Accordion>
-  );
-}
+              <Grid size={{ xs: 12, sm: 7 }}>
+                <TextField
+                  label="Nombre"
+                  value={item.name}
+                  onChange={(e) => props.handleEditar(index, { ...item, name: e.target.value })}
+                  size="small"
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 2 }}>
+                <TextField
+                  label="Cantidad"
+                  value={item.quantity}
+                  onChange={(e) => props.handleEditar(index, { ...item, quantity: parseInt(e.target.value) })}
+                  type="number"
+                  size="small"
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <TextField
+                  label="Precio"
+                  value={item.price}
+                  onChange={(e) => props.handleEditar(index, { ...item, price: parseFloat(e.target.value) })}
+                  type="number"
+                  size="small"
+                  fullWidth
+                />
+              </Grid>
+              <Grid size={12}>
+                <TextField
+                  label="Link (opcional)"
+                  value={item.link}
+                  onChange={(e) => props.handleEditar(index, { ...item, link: e.target.value })}
+                  type="url"
+                  size="small"
+                  fullWidth
+                />
+              </Grid>
 
-interface Item {
-  id: number;
-  name: string;
-  quantity: number;
-  price: number;
-  link: string;
+              <Grid size={12}>
+                <Box display={"flex"} justifyContent={"end"}>
+                  <Chip
+                    label={`Subtotal $${FormatoDinero(item.quantity * item.price)}`}
+                    variant="filled"
+                    color="primary"
+                    size="small"
+                    sx={{
+                      fontWeight: "bold"
+                    }}
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Fragment>
+      ))}
+    </>
+  );
 }
