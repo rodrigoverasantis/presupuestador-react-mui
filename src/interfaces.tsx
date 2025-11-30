@@ -21,14 +21,18 @@ export interface ItemInterface {
   link: string;
 }
 
-export interface FormProps {
+export interface FormPropsInterface {
   form: FormInterface;
   setForm: (form: FormInterface) => void;
 }
 
-export interface ItemsProps {
+export interface ItemsPropsInterface {
   items: Array<ItemInterface>;
   handleAgregar: () => void;
   handleEliminar: (itemIndex: number) => void;
   handleEditar: (itemIndex: number, editedItem: ItemInterface) => void;
+}
+
+export interface PreviewPropsInterface {
+  form: FormInterface;
 }
