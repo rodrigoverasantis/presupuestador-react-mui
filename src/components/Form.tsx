@@ -14,7 +14,9 @@ export default function Form() {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography component="span">Datos del presupuesto</Typography>
+        <Typography component="span">
+          Datos del presupuesto
+        </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
