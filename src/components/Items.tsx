@@ -10,10 +10,10 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import type { ItemsProps } from "../interfaces";
+import type { ItemsPropsInterface } from "../interfaces";
 import { FormatoDinero } from "../utils";
 
-export default function Items(props: ItemsProps) {
+export default function Items(props: ItemsPropsInterface) {
 
   return (
     <>

@@ -6,9 +6,9 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { TIPOS_MONEDA } from "../utils";
-import type { FormProps } from "../interfaces";
+import type { FormPropsInterface } from "../interfaces";
 
-export default function Form(props: FormProps) {
+export default function Form(props: FormPropsInterface) {
   return (
     <Paper elevation={5} sx={{ p: 2, my: 2, borderRadius: 4 }}>
       <Grid container spacing={2}>
