@@ -19,7 +19,9 @@ export default function App() {
         handleEliminar={useApp.handleEliminar}
         handleEditar={useApp.handleEditar}
       />
-      <Preview />
+      <Preview
+        form={useApp.form}
+      />
     </Container>
   );
 }
