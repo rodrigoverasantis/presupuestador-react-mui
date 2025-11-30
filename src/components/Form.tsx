@@ -15,6 +15,8 @@ export default function Form(props: FormProps) {
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
             label="Cliente"
+            value={props.form.cliente}
+            onChange={(event) => props.setForm({ ...props.form, cliente: event.target.value })}
             size="small"
             fullWidth
           />
