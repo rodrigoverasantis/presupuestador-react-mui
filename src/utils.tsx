@@ -12,3 +12,12 @@ export const FormatoDinero = (valor: number, divisa: string = "CLP") => {
   });
   return formatter.format(valor);
 }
+
+/**
+ * Colección de tipos de monedas.
+ */
+export const TIPOS_MONEDA = [
+  { label: "Dólar", value: "USD" },
+  { label: "Peso chileno", value: "CLP" },
+  { label: "Unidad de fomento", value: "UF" },
+];
