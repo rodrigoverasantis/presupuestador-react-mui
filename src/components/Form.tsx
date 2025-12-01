@@ -16,7 +16,7 @@ export default function Form(props: FormPropsInterface) {
    * @param newData Datos actualizados del formulario.
    */
   const handleEditar = (newData: object) => {
-    props.setForm({ ...props.form, ...newData })
+    props.handleEditarFormulario({ ...props.form, ...newData })
   }
 
   return (

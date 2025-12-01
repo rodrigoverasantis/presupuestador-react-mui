@@ -51,7 +51,7 @@ export default function Items(props: ItemsPropsInterface) {
                 <TextField
                   label="Nombre"
                   value={item.name}
-                  onChange={(e) => props.handleEditar(index, { ...item, name: e.target.value })}
+                  onChange={(event) => props.handleEditarElementos(index, { ...item, name: event.target.value })}
                   size="small"
                   fullWidth
                 />
@@ -60,7 +60,7 @@ export default function Items(props: ItemsPropsInterface) {
                 <TextField
                   label="Cantidad"
                   value={item.quantity}
-                  onChange={(e) => props.handleEditar(index, { ...item, quantity: parseInt(e.target.value) })}
+                  onChange={(event) => props.handleEditarElementos(index, { ...item, quantity: parseInt(event.target.value) })}
                   type="number"
                   size="small"
                   fullWidth
@@ -70,7 +70,7 @@ export default function Items(props: ItemsPropsInterface) {
                 <TextField
                   label="Precio"
                   value={item.price}
-                  onChange={(e) => props.handleEditar(index, { ...item, price: parseFloat(e.target.value) })}
+                  onChange={(event) => props.handleEditarElementos(index, { ...item, price: parseFloat(event.target.value) })}
                   type="number"
                   size="small"
                   fullWidth
@@ -80,7 +80,7 @@ export default function Items(props: ItemsPropsInterface) {
                 <TextField
                   label="Link (opcional)"
                   value={item.link}
-                  onChange={(e) => props.handleEditar(index, { ...item, link: e.target.value })}
+                  onChange={(event) => props.handleEditarElementos(index, { ...item, link: event.target.value })}
                   type="url"
                   size="small"
                   fullWidth
