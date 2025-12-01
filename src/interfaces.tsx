@@ -12,6 +12,7 @@ export interface FormInterface {
   fechaEmision: Date;
   fechaVencimiento: Date | null;
   descripcion: string;
+  items: Array<ItemInterface>;
 }
 
 export interface ItemInterface {
@@ -23,14 +24,14 @@ export interface ItemInterface {
 
 export interface FormPropsInterface {
   form: FormInterface;
-  setForm: (form: FormInterface) => void;
+  handleEditarFormulario: (newData: object) => void,
 }
 
 export interface ItemsPropsInterface {
   items: Array<ItemInterface>;
   handleAgregar: () => void;
   handleEliminar: (itemIndex: number) => void;
-  handleEditar: (itemIndex: number, editedItem: ItemInterface) => void;
+  handleEditarElementos: (itemIndex: number, editedItem: ItemInterface) => void;
 }
 
 export interface PreviewPropsInterface {
