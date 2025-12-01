@@ -11,13 +11,13 @@ export default function App() {
     <Container maxWidth="md">
       <Form
         form={useApp.form}
-        setForm={useApp.setForm}
+        handleEditarFormulario={useApp.handleEditarFormulario}
       />
       <Items
         items={useApp.items}
         handleAgregar={useApp.handleAgregar}
         handleEliminar={useApp.handleEliminar}
-        handleEditar={useApp.handleEditar}
+        handleEditarElementos={useApp.handleEditarElementos}
       />
       <Preview
         form={useApp.form}

@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { type FormInterface, type ItemInterface } from "./interfaces";
-import { Form } from "./classes";
 
 export default function UseApp() {
-  const [form, setForm] = useState<FormInterface>(new Form());
-  const [items, setItems] = useState<ItemInterface[]>([]);
+  const [form, setForm] = useState<FormInterface>(FORM_INITIAL_VALUES);
 
   /**
    * Método encargado de agregar nuevos elementos.
    */
   const handleAgregar = () => {
-    let newItem: ItemInterface = {
+    const newItem: ItemInterface = {
       name: "",
-      quantity: 0,
+      quantity: 1,
       price: 0,
       link: "",
     }
-    setItems([...items, newItem]);
+    setForm({ ...form, items: [...form.items, newItem] });
   }
 
   /**
@@ -24,8 +22,16 @@ export default function UseApp() {
    * @param itemIndex Índice del elemento.
    */
   const handleEliminar = (itemIndex: number) => {
-    const filteredItems = items.filter((_, index) => index !== itemIndex);
-    setItems(filteredItems);
+    const filteredItems = form.items.filter((_, index) => index !== itemIndex);
+    setForm({ ...form, items: filteredItems });
+  }
+
+  /**
+   * Método encargado de combinar los datos del formulario con los nuevos datos.
+   * @param newData Datos actualizados del formulario.
+   */
+  const handleEditarFormulario = (newData: object) => {
+    setForm({ ...form, ...newData })
   }
 
   /**
@@ -33,17 +39,35 @@ export default function UseApp() {
    * @param itemIndex Índice del elemento.
    * @param editedItem Elemento con los datos actualizados.
    */
-  const handleEditar = (itemIndex: number, editedItem: ItemInterface) => {
-    const editedItems = items.map((item, index) => index === itemIndex ? editedItem : item);
-    setItems(editedItems);
+  const handleEditarElementos = (itemIndex: number, editedItem: ItemInterface) => {
+    const editedItems = form.items.map((item, index) => index === itemIndex ? editedItem : item);
+    setForm({ ...form, items: editedItems });
   }
 
   return {
     form,
     setForm,
-    items,
+    items: form.items,
     handleAgregar,
     handleEliminar,
-    handleEditar,
+    handleEditarFormulario,
+    handleEditarElementos,
   }
+}
+
+const FORM_INITIAL_VALUES = {
+  cliente: "",
+  empresa: "",
+  rut: "",
+  direccion: "",
+  telefono: "",
+  email: "",
+  ciudad: "",
+  iva: 0,
+  moneda: null,
+  descuento: 0,
+  fechaEmision: new Date(),
+  fechaVencimiento: null,
+  descripcion: "",
+  items: [],
 }
