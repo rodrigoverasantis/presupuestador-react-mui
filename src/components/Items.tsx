@@ -32,7 +32,12 @@ export default function Items(props: ItemsPropsInterface) {
                 <Box display={"flex"} justifyContent={"space-between"}>
                   <Chip
                     label={`Elemento #${index + 1}`}
+                    color="primary"
+                    variant="outlined"
                     size="medium"
+                    sx={{
+                      fontWeight: "bold"
+                    }}
                   />
 
                   <Tooltip title="Eliminar">
