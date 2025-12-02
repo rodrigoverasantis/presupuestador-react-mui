@@ -1,25 +1,27 @@
 import { Container } from "@mui/material";
-import Form from "./components/Form";
-import Items from "./components/Items";
-import Preview from "./components/Preview";
 import UseApp from "./useApp";
+import { lazy } from "react";
+
+const FormComponent = lazy(() => import("./components/Form"));
+const ItemsComponent = lazy(() => import("./components/Items"));
+const PreviewComponent = lazy(() => import("./components/Preview"));
 
 export default function App() {
   const useApp = UseApp();
 
   return (
     <Container maxWidth="md">
-      <Form
+      <FormComponent
         form={useApp.form}
         handleEditarFormulario={useApp.handleEditarFormulario}
       />
-      <Items
+      <ItemsComponent
         items={useApp.items}
         handleAgregar={useApp.handleAgregar}
         handleEliminar={useApp.handleEliminar}
         handleEditarElementos={useApp.handleEditarElementos}
       />
-      <Preview
+      <PreviewComponent
         form={useApp.form}
       />
     </Container>
