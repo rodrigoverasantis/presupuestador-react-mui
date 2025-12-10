@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   Grid,
-  Paper,
   TextField,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -20,7 +19,6 @@ export default function Form(props: FormPropsInterface) {
   }
 
   return (
-    <Paper elevation={5} sx={{ p: 2, my: 2, borderRadius: 4 }}>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField
@@ -159,7 +157,6 @@ export default function Form(props: FormPropsInterface) {
             fullWidth
           />
         </Grid>
-      </Grid>
-    </Paper>
+    </Grid>
   );
 }
