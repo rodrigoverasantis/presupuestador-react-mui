@@ -7,7 +7,7 @@ export interface FormInterface {
   email: string;
   ciudad: string;
   iva: number;
-  moneda: null;
+  moneda: MonedaInterface | null;
   descuento: number;
   fechaEmision: Date;
   fechaVencimiento: Date | null;
@@ -20,6 +20,11 @@ export interface ItemInterface {
   quantity: number;
   price: number;
   link: string;
+}
+
+export interface MonedaInterface {
+  label: string;
+  value: string;
 }
 
 export interface FormPropsInterface {
