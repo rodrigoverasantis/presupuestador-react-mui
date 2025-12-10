@@ -1,0 +1,1 @@
+import{n as t}from"./index-CdPT_YiL.js";const n=(r,e="CLP")=>new Intl.NumberFormat("es-ES",{style:"currency",currency:e,minimumFractionDigits:e==="CLP"?0:2}).format(r),m=r=>t.isDayjs(r)?t(r).format("DD/MM/YYYY"):"",s=[{label:"Dólar",value:"USD"},{label:"Peso chileno",value:"CLP"},{label:"Unidad de fomento",value:"UF"}];export{n as F,s as T,m as a};
