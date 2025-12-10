@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 /**
  * Método encargado de formatear a formato de dinero.
  * @param valor Cantidad a formatear.
@@ -12,6 +14,18 @@ export const FormatoDinero = (valor: number, divisa: string = "CLP") => {
   });
   return formatter.format(valor);
 }
+
+/**
+ * Método encargado de formatear una fecha.
+ * @param fecha Fecha a formatear.
+ * @returns Fecha formateada a DD/MM/YYYY.
+ */
+export const FormatoFecha = (fecha: Date | null) => {
+  if (!dayjs.isDayjs(fecha)) {
+    return "";
+  }
+  return dayjs(fecha).format("DD/MM/YYYY");
+} 
 
 /**
  * Colección de tipos de monedas.
