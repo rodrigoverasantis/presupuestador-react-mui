@@ -1,6 +1,9 @@
-import { Page, Text, Document, StyleSheet, PDFViewer, Image } from "@react-pdf/renderer";
-import type { PreviewPropsInterface } from "../interfaces";
-import { FormatoFecha } from "../utils";
+import { useMemo } from "react";
+import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
+import type { ItemInterface, PreviewPropsInterface } from "../interfaces";
+import { FormatoFecha, FormatoDinero } from "../utils";
+
+const borderColor = "#90e5fc";
 
 export default function Preview(props: PreviewPropsInterface) {
 
@@ -54,9 +57,10 @@ export default function Preview(props: PreviewPropsInterface) {
             {`Descripción: ${props.form.descripcion}`}
           </Text>
           {props.form.items.map((item, index) => (
-            <Text style={styles.text} key={`elemento_${index}`}>
-              {`Elemento ${index + 1}: ${item.name}`}
-            </Text>
+            <TableRowComponent
+              item={item}
+              key={`item_${index}`}
+            />
           ))}
 
           <Text style={styles.text}>
@@ -116,24 +120,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    textAlign: 'center',
-    fontFamily: 'Times-Roman'
+    textAlign: "center",
+    fontFamily: "Times-Roman"
   },
   author: {
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 40,
   },
   subtitle: {
     fontSize: 18,
     margin: 12,
-    fontFamily: 'Times-Roman'
+    fontFamily: "Times-Roman"
   },
   text: {
     margin: 2,
     fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'Times-Roman'
+    textAlign: "justify",
+    fontFamily: "Times-Roman"
   },
   image: {
     marginVertical: 15,
@@ -142,16 +146,73 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 12,
     marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
+    textAlign: "center",
+    color: "grey",
   },
   pageNumber: {
-    position: 'absolute',
+    position: "absolute",
     fontSize: 12,
     bottom: 30,
     left: 0,
     right: 0,
-    textAlign: 'center',
-    color: 'grey',
+    textAlign: "center",
+    color: "grey",
   },
 });
+
+const TableRowComponent = (props: { item: ItemInterface }) => {
+  console.log(props.item);
+  const valor = useMemo(() => {
+    if (isNaN(props.item.price) || isNaN(props.item.quantity)) {
+      return 0;
+    }
+    return props.item.price * props.item.quantity;
+  }, [props.item]);
+  const TableRowStyle = StyleSheet.create({
+    row: {
+      flexDirection: "row",
+      borderBottomColor: "#bff0fd",
+      borderBottomWidth: 1,
+      alignItems: "center",
+      height: 24,
+    },
+    description: {
+      width: "60%",
+      textAlign: "left",
+      borderRightColor: borderColor,
+      borderRightWidth: 1,
+      paddingLeft: 8,
+    },
+    qty: {
+      width: "10%",
+      borderRightColor: borderColor,
+      borderRightWidth: 1,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+    rate: {
+      width: "15%",
+      borderRightColor: borderColor,
+      borderRightWidth: 1,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+    amount: {
+      width: "15%",
+      textAlign: "right",
+      paddingRight: 8,
+    },
+  });
+  // if (!props.item.name || !props.item.price || !props.item.quantity || !props.item.link) {
+  //   return null;
+  // }
+
+  return (
+    <View style={TableRowStyle.row}>
+      <Text style={TableRowStyle.description}>{props.item.name || ""}</Text>
+      <Text style={TableRowStyle.qty}>{props.item.quantity || 0}</Text>
+      <Text style={TableRowStyle.rate}>{props.item.price || 0}</Text>
+      <Text style={TableRowStyle.amount}>{FormatoDinero(valor)}</Text>
+    </View>
+  );
+}
