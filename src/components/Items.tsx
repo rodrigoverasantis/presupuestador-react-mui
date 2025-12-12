@@ -31,7 +31,7 @@ export default function Items(props: ItemsPropsInterface) {
 
         {/* TOTAL DE LOS ELEMENTOS */}
         <Chip
-          label={`Total $${FormatoDinero(total)}`}
+          label={`Total ${FormatoDinero(total)}`}
           variant="filled"
           color="primary"
           size="medium"
@@ -80,7 +80,7 @@ export default function Items(props: ItemsPropsInterface) {
 
                 {/* SUBTOTAL DEL ELEMENTO */}
                 <Chip
-                  label={`Subtotal $${FormatoDinero(item.quantity * item.price)}`}
+                  label={`Subtotal ${FormatoDinero(item.quantity * item.price)}`}
                   variant="outlined"
                   color="primary"
                   size="medium"

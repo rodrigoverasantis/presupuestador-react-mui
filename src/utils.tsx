@@ -12,7 +12,7 @@ export const FormatoDinero = (valor: number, divisa: string = "CLP") => {
     currency: divisa,
     minimumFractionDigits: divisa === "CLP" ? 0 : 2,
   });
-  return formatter.format(valor);
+  return `$${formatter.format(valor)}`;
 }
 
 /**
