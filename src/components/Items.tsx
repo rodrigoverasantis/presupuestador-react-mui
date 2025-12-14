@@ -23,8 +23,9 @@ export default function Items(props: ItemsPropsInterface) {
         {/* BOTÓN PARA AGREGAR ELEMENTOS */}
         <Button
           onClick={props.handleAgregar}
-          color="primary"
           variant="contained"
+          color="primary"
+          size="small"
         >
           Agregar elemento
         </Button>
