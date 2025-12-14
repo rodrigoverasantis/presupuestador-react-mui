@@ -42,3 +42,9 @@ export interface ItemsPropsInterface {
 export interface PreviewPropsInterface {
   form: FormInterface;
 }
+
+export interface PreviewTablePropsInterface {
+  iva: number;
+  descuento: number;
+  items: ItemInterface[];
+}
