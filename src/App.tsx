@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Container, Stack } from "@mui/material";
+import { Container, Stack, Tab, Tabs } from "@mui/material";
 import UseApp from "./useApp";
 
 const FormComponent = lazy(() => import("./components/Form"));
@@ -11,21 +11,38 @@ export default function App() {
 
   return (
     <Container maxWidth="md">
-      <Stack direction={"column"} spacing={2}>
-        <FormComponent
-          form={useApp.form}
-          handleEditarFormulario={useApp.handleEditarFormulario}
-        />
-        <ItemsComponent
-          items={useApp.items}
-          handleAgregar={useApp.handleAgregar}
-          handleEliminar={useApp.handleEliminar}
-          handleEditarElementos={useApp.handleEditarElementos}
-        />
+      <Tabs
+        value={useApp.tabIndex}
+        onChange={(_, value) => useApp.setTabIndex(value)}
+        centered
+        sx={{ pb: 1 }}
+      >
+        <Tab label="Formulario" />
+        <Tab label="Vista previa" />
+        <Tab label="PDF" />
+      </Tabs>
+
+      {useApp.tabIndex === 0 && (
+        <Stack direction={"column"} spacing={2}>
+          <FormComponent
+            form={useApp.form}
+            handleEditarFormulario={useApp.handleEditarFormulario}
+          />
+          <ItemsComponent
+            items={useApp.items}
+            handleAgregar={useApp.handleAgregar}
+            handleEliminar={useApp.handleEliminar}
+            handleEditarElementos={useApp.handleEditarElementos}
+          />
+        </Stack>
+      )}
+
+      {useApp.tabIndex === 1 && (
         <PreviewComponent
           form={useApp.form}
+          items={useApp.items}
         />
-      </Stack>
+      )}
     </Container>
   );
 }
