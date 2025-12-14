@@ -103,7 +103,7 @@ export default function Items(props: ItemsPropsInterface) {
               <TextField
                 label="Cantidad"
                 value={item.quantity}
-                onChange={(event) => props.handleEditarElementos(index, { ...item, quantity: parseInt(event.target.value) })}
+                onChange={(event) => props.handleEditarElementos(index, { ...item, quantity: parseInt(event.target.value) || 1 })}
                 type="number"
                 size="small"
                 fullWidth
@@ -113,7 +113,7 @@ export default function Items(props: ItemsPropsInterface) {
               <TextField
                 label="Precio"
                 value={item.price}
-                onChange={(event) => props.handleEditarElementos(index, { ...item, price: parseFloat(event.target.value) })}
+                onChange={(event) => props.handleEditarElementos(index, { ...item, price: parseFloat(event.target.value) || 0 })}
                 type="number"
                 size="small"
                 fullWidth
