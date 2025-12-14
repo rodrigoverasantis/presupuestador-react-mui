@@ -8,12 +8,12 @@ import type { MonedaInterface } from "./interfaces";
  * @returns Cantidad formateada como dinero.
  */
 export const FormatoDinero = (valor: number, divisa: string = "CLP") => {
-  const formatter = new Intl.NumberFormat("es-ES", {
+  const formatter = new Intl.NumberFormat("es-CL", {
     style: "currency",
     currency: divisa,
     minimumFractionDigits: divisa === "CLP" ? 0 : 2,
   });
-  return `$${formatter.format(valor)}`;
+  return formatter.format(valor);
 }
 
 /**
@@ -39,6 +39,7 @@ export const FormatoMoneda = (moneda: MonedaInterface | null) => {
   }
   return `${moneda.label} ${moneda.value}`;
 }
+
 /**
  * Colección de tipos de monedas.
  */
