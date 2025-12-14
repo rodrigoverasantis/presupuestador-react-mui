@@ -28,6 +28,17 @@ export const FormatoFecha = (fecha: Date | null) => {
 } 
 
 /**
+ * Método encargado de formatear una moneda.
+ * @param moneda Moneda a formatear.
+ * @returns Moneda formateada.
+ */
+export const FormatoMoneda = (moneda: MonedaInterface | null) => {
+  if (!moneda) {
+    return "";
+  }
+  return `${moneda.label} ${moneda.value}`;
+}
+/**
  * Colección de tipos de monedas.
  */
 export const TIPOS_MONEDA = [
