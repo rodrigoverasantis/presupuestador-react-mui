@@ -11,7 +11,6 @@ export default function Preview(props: PreviewPropsInterface) {
     <>
       <Paper variant="outlined" sx={{ p: 2 }}>
         <Grid container spacing={1}>
-          {/* Columna izquierda */}
           <Grid size={{ xs: 12, md: 6 }}>
             <Typography>
               Cliente: {props.form.cliente}
