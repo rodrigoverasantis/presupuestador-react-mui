@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
 import type { ItemInterface, PreviewPropsInterface } from "../interfaces";
 import { FormatoFecha, FormatoDinero } from "../utils";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
@@ -9,16 +7,22 @@ export default function Preview(props: PreviewPropsInterface) {
 
   return (
     <>
-      <Typography>{`Cliente: ${props.form.cliente}`}</Typography>
-      <Typography>{`Empresa: ${props.form.empresa}`}</Typography>
-      <Typography>{`RUT: ${props.form.rut}`}</Typography>
-      <Typography>{`Dirección: ${props.form.direccion}`}</Typography>
-      <Typography>{`Teléfono: ${props.form.telefono}`}</Typography>
-      <Typography>{`Email: ${props.form.email}`}</Typography>
-      <Typography>{`Ciudad: ${props.form.ciudad}`}</Typography>
+      <Paper sx={{ p: 2 }}>
+        <Typography>{`Cliente: ${props.form.cliente}`}</Typography>
+        <Typography>{`Empresa: ${props.form.empresa}`}</Typography>
+        <Typography>{`RUT: ${props.form.rut}`}</Typography>
+        <Typography>{`Dirección: ${props.form.direccion}`}</Typography>
+        <Typography>{`Teléfono: ${props.form.telefono}`}</Typography>
+        <Typography>{`Email: ${props.form.email}`}</Typography>
+        <Typography>{`Ciudad: ${props.form.ciudad}`}</Typography>
+        <Typography>{`IVA: ${props.form.iva}%`}</Typography>
+        <Typography>{`Moneda: ${props.form.moneda?.label} ${props.form.moneda?.value}`}</Typography>
+        <Typography>{`Descuento: ${props.form.descuento}%`}</Typography>
+        <Typography>{`Fecha emisión: ${FormatoFecha(props.form.fechaEmision)}`}</Typography>
+        <Typography>{`Fecha vencimiento: ${FormatoFecha(props.form.fechaVencimiento)}`}</Typography>
+      </Paper>
 
       <TableComponent items={props.form.items} />
-      {JSON.stringify(props.form)}
     </>
   );
 }
