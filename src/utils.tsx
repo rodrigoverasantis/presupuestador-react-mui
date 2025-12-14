@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import type { MonedaInterface } from "./interfaces";
 
 /**
  * Método encargado de formatear a formato de dinero.
@@ -41,7 +42,7 @@ export const FormatoMoneda = (moneda: MonedaInterface | null) => {
 /**
  * Colección de tipos de monedas.
  */
-export const TIPOS_MONEDA = [
+export const TIPOS_MONEDA: MonedaInterface[] = [
   { label: "Dólar", value: "USD" },
   { label: "Peso chileno", value: "CLP" },
   { label: "Unidad de fomento", value: "UF" },
