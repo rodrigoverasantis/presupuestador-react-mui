@@ -12,7 +12,6 @@ export interface FormInterface {
   fechaEmision: Date;
   fechaVencimiento: Date | null;
   descripcion: string;
-  items: Array<ItemInterface>;
 }
 
 export interface ItemInterface {
@@ -41,10 +40,9 @@ export interface ItemsPropsInterface {
 
 export interface PreviewPropsInterface {
   form: FormInterface;
-}
-
-export interface PreviewTablePropsInterface {
-  iva: number;
-  descuento: number;
   items: ItemInterface[];
+  // subtotal: number;
+  // iva: number;
+  // descuento: number;
+  // total: number;
 }
