@@ -12,7 +12,7 @@ import type { FormPropsInterface } from "../interfaces";
 export default function Form(props: FormPropsInterface) {
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper variant="outlined" sx={{ p: 2 }}>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, sm: 6 }}>
           <TextField

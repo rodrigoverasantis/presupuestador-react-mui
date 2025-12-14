@@ -9,7 +9,7 @@ export default function Preview(props: PreviewPropsInterface) {
 
   return (
     <>
-      <Paper sx={{ p: 2 }}>
+      <Paper variant="outlined" sx={{ p: 2 }}>
         <Grid container spacing={1}>
           {/* Columna izquierda */}
           <Grid size={{ xs: 12, md: 6 }}>
