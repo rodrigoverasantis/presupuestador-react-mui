@@ -2,7 +2,17 @@ import { useState } from "react";
 import { type FormInterface, type ItemInterface } from "./interfaces";
 
 export default function UseApp() {
+  const [tabIndex, setTabIndex] = useState(0);
   const [form, setForm] = useState<FormInterface>(FORM_INITIAL_VALUES);
+  const [items, setItems] = useState<ItemInterface[]>([]);
+
+  /**
+   * Método encargado de combinar los datos del formulario con los nuevos datos.
+   * @param newData Datos actualizados del formulario.
+   */
+  const handleEditarFormulario = (newData: object) => {
+    setForm({ ...form, ...newData })
+  }
 
   /**
    * Método encargado de agregar nuevos elementos.
@@ -14,7 +24,7 @@ export default function UseApp() {
       price: 0,
       link: "",
     }
-    setForm({ ...form, items: [...form.items, newItem] });
+    setItems([...items, newItem]);
   }
 
   /**
@@ -22,16 +32,8 @@ export default function UseApp() {
    * @param itemIndex Índice del elemento.
    */
   const handleEliminar = (itemIndex: number) => {
-    const filteredItems = form.items.filter((_, index) => index !== itemIndex);
-    setForm({ ...form, items: filteredItems });
-  }
-
-  /**
-   * Método encargado de combinar los datos del formulario con los nuevos datos.
-   * @param newData Datos actualizados del formulario.
-   */
-  const handleEditarFormulario = (newData: object) => {
-    setForm({ ...form, ...newData })
+    const filteredItems = items.filter((_, index) => index !== itemIndex);
+    setItems(filteredItems);
   }
 
   /**
@@ -40,17 +42,20 @@ export default function UseApp() {
    * @param editedItem Elemento con los datos actualizados.
    */
   const handleEditarElementos = (itemIndex: number, editedItem: ItemInterface) => {
-    const editedItems = form.items.map((item, index) => index === itemIndex ? editedItem : item);
-    setForm({ ...form, items: editedItems });
+    const editedItems = items.map((item, index) => index === itemIndex ? editedItem : item);
+    setItems(editedItems);
   }
 
   return {
+    tabIndex,
+    setTabIndex,
+
     form,
-    setForm,
-    items: form.items,
+    handleEditarFormulario,
+
+    items: items,
     handleAgregar,
     handleEliminar,
-    handleEditarFormulario,
     handleEditarElementos,
   }
 }
