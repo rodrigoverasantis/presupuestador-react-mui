@@ -42,7 +42,7 @@ export default function Items(props: ItemsPropsInterface) {
         />
       </Box>
 
-      {/* SI NO HAY DATOS */}
+      {/* SI NO HAY ELEMENTOS */}
       {props.items.length === 0 && (
         <Typography alignSelf={"center"}>
           Sin elementos
