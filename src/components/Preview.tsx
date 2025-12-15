@@ -138,7 +138,13 @@ const TableComponent = (items: ItemInterface[], descuento: number, iva: number) 
             <TableCell component="th" scope="row">
               {item.name}
               {item.link && (
-                <IconButton size="small" sx={{ ml: 1 }}>
+                <IconButton
+                  onClick={() => window.open(item.link, "_blank")}
+                  size="small"
+                  sx={{
+                    ml: 1,
+                  }}
+                >
                   <Link />
                 </IconButton>
               )}
