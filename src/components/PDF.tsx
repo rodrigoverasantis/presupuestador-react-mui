@@ -1,14 +1,14 @@
-import { useMemo } from "react";
+import { Fragment } from "react";
 import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
 import type { ItemInterface, PreviewPropsInterface } from "../interfaces";
 import { FormatoFecha, FormatoDinero } from "../utils";
 
-const borderColor = "#90e5fc";
+const borderColor = "#000000";
 
 export default function PDF(props: PreviewPropsInterface) {
 
   return (
-    <PDFViewer style={{ width: 600, height: 900 }}>
+    <PDFViewer style={{ width: "100%", height: 900 }}>
       <Document key="pdf-document">
         <Page size="A4" style={styles.body}>
           <Text style={styles.header}>
@@ -56,12 +56,13 @@ export default function PDF(props: PreviewPropsInterface) {
           <Text style={styles.text}>
             {`Descripción: ${props.form.descripcion}`}
           </Text>
-          {props.form.items.map((item, index) => (
-            <TableRowComponent
-              item={item}
-              key={`item_${index}`}
-            />
+          {props.items.map((item, index) => (
+            <Fragment key={`elemento_${index}`}>
+              {TableRowComponent(item)}
+            </Fragment>
           ))}
+
+          {TableFooterComponent()}
 
           <Text style={styles.text}>
             Con estas y semejantes razones perdía el pobre caballero el juicio, y
@@ -160,59 +161,117 @@ const styles = StyleSheet.create({
   },
 });
 
-const TableRowComponent = (props: { item: ItemInterface }) => {
-  console.log(props.item);
-  const valor = useMemo(() => {
-    if (isNaN(props.item.price) || isNaN(props.item.quantity)) {
-      return 0;
-    }
-    return props.item.price * props.item.quantity;
-  }, [props.item]);
-  const TableRowStyle = StyleSheet.create({
+/**
+ * Subcomponente fila de la tabla.
+ * @param item Datos del elemento.
+ * @returns Componente.
+ */
+const TableRowComponent = (item: ItemInterface) => (
+  <View style={ComponentStyles.tableRow.row}>
+    <Text style={ComponentStyles.tableRow.name}>
+      {item.name || ""}
+    </Text>
+    <Text style={ComponentStyles.tableRow.quantity}>
+      {item.quantity}
+    </Text>
+    <Text style={ComponentStyles.tableRow.price}>
+      {FormatoDinero(item.price)}
+    </Text>
+    <Text style={ComponentStyles.tableRow.total}>
+      {FormatoDinero(item.price * item.quantity)}
+    </Text>
+  </View>
+)
+
+const TableFooterComponent = () => (
+  <View>
+    <View style={ComponentStyles.tableFooter.row}>
+      <Text style={ComponentStyles.tableFooter.text}>
+        Subtotal
+      </Text>
+      <Text style={ComponentStyles.tableFooter.value}>
+        $123.456
+      </Text>
+    </View>
+    <View style={ComponentStyles.tableFooter.row}>
+      <Text style={ComponentStyles.tableFooter.text}>
+        IVA 10%
+      </Text>
+      <Text style={ComponentStyles.tableFooter.value}>
+        $12.345
+      </Text>
+    </View>
+    <View style={ComponentStyles.tableFooter.row}>
+      <Text style={ComponentStyles.tableFooter.text}>
+        Total
+      </Text>
+      <Text style={ComponentStyles.tableFooter.value}>
+        $135.680
+      </Text>
+    </View>
+  </View>
+);
+
+const ComponentStyles = {
+  tableHeader: StyleSheet.create({}),
+  tableRow: StyleSheet.create({
     row: {
       flexDirection: "row",
-      borderBottomColor: "#bff0fd",
+      borderBottomColor: borderColor,
       borderBottomWidth: 1,
       alignItems: "center",
-      height: 24,
     },
-    description: {
-      width: "60%",
+    name: {
+      width: "55%",
+      fontSize: 14,
       textAlign: "left",
       borderRightColor: borderColor,
       borderRightWidth: 1,
       paddingLeft: 8,
     },
-    qty: {
+    quantity: {
       width: "10%",
+      fontSize: 14,
       borderRightColor: borderColor,
       borderRightWidth: 1,
       textAlign: "right",
       paddingRight: 8,
     },
-    rate: {
+    price: {
       width: "15%",
+      fontSize: 14,
       borderRightColor: borderColor,
       borderRightWidth: 1,
       textAlign: "right",
       paddingRight: 8,
     },
-    amount: {
-      width: "15%",
+    total: {
+      width: "20%",
+      fontSize: 14,
       textAlign: "right",
       paddingRight: 8,
     },
-  });
-  // if (!props.item.name || !props.item.price || !props.item.quantity || !props.item.link) {
-  //   return null;
-  // }
-
-  return (
-    <View style={TableRowStyle.row}>
-      <Text style={TableRowStyle.description}>{props.item.name || ""}</Text>
-      <Text style={TableRowStyle.qty}>{props.item.quantity || 0}</Text>
-      <Text style={TableRowStyle.rate}>{props.item.price || 0}</Text>
-      <Text style={TableRowStyle.amount}>{FormatoDinero(valor)}</Text>
-    </View>
-  );
+  }),
+  tableFooter: StyleSheet.create({
+    row: {
+      flexDirection: "row",
+      borderBottomColor: borderColor,
+      borderBottomWidth: 1,
+      alignItems: "center",
+    },
+    text: {
+      width: "80%",
+      fontSize: 14,
+      borderRightColor: borderColor,
+      borderRightWidth: 1,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+    value: {
+      width: "20%",
+      fontSize: 14,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+  }),
 }
