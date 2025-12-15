@@ -123,6 +123,16 @@ const TableComponent = (items: ItemInterface[], descuento: number, iva: number) 
       </TableHead>
 
       <TableBody>
+        {/* SI NO HAY ELEMENTOS */}
+        {items.length === 0 && (
+          <TableRow>
+            <TableCell colSpan={4} sx={{ textAlign: "center" }}>
+              Sin elementos
+            </TableCell>
+          </TableRow>
+        )}
+
+        {/* LISTADO DE ELEMENTOS */}
         {items.map((item, index) => (
           <TableRow key={`item_${index}`}>
             <TableCell component="th" scope="row">
