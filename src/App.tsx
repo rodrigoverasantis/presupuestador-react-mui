@@ -1,11 +1,11 @@
 import { lazy } from "react";
 import { Container, Stack, Tab, Tabs } from "@mui/material";
 import UseApp from "./useApp";
-import PDF from "./components/PDF";
 
 const FormComponent = lazy(() => import("./components/Form"));
 const ItemsComponent = lazy(() => import("./components/Items"));
 const PreviewComponent = lazy(() => import("./components/Preview"));
+const PDFComponent = lazy(() => import("./components/PDF"));
 
 export default function App() {
   const useApp = UseApp();
@@ -49,7 +49,7 @@ export default function App() {
 
       {/* PESTAÑA 2 */}
       {useApp.tabIndex === 2 && (
-        <PDF
+        <PDFComponent
           form={useApp.form}
           items={useApp.items}
         />
