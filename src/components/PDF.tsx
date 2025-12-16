@@ -1,9 +1,6 @@
-import { Fragment } from "react";
 import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
 import type { ItemInterface, PreviewPropsInterface } from "../interfaces";
 import { FormatoFecha, FormatoDinero } from "../utils";
-
-const borderColor = "#000000";
 
 export default function PDF(props: PreviewPropsInterface) {
 
@@ -17,85 +14,59 @@ export default function PDF(props: PreviewPropsInterface) {
           <Text style={styles.title}>Don Quijote de la Mancha</Text>
           <Text style={styles.author}>Miguel de Cervantes aa</Text>
 
-          <Text style={styles.text}>
-            {`Cliente: ${props.form.cliente}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Empresa: ${props.form.empresa}`}
-          </Text>
-          <Text style={styles.text}>
-            {`RUT: ${props.form.rut}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Dirección: ${props.form.direccion}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Teléfono: ${props.form.telefono}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Email: ${props.form.email}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Ciudad: ${props.form.ciudad}`}
-          </Text>
-          <Text style={styles.text}>
-            {`IVA: ${props.form.iva}%`}
-          </Text>
-          <Text style={styles.text}>
-            {`Moneda: ${props.form.moneda ? `${props.form.moneda.label} ${props.form.moneda.value}` : ""}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Descuento: ${props.form.descuento}%`}
-          </Text>
-          <Text style={styles.text}>
-            {`Fecha de emisión: ${FormatoFecha(props.form.fechaEmision)}`}
-          </Text>
-          <Text style={styles.text}>
-            {`Fecha de vencimiento: ${FormatoFecha(props.form.fechaVencimiento)}`}
-          </Text>
-          <Text style={styles.text}>
+          <View style={ComponentStyles.form.row}>
+            <View style={ComponentStyles.form.column}>
+              <Text style={ComponentStyles.form.text}>
+                Cliente: {props.form.cliente}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Empresa: {props.form.empresa}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                RUT: {props.form.rut}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Ciudad: {props.form.ciudad}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                IVA: {props.form.iva}%
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Moneda: {props.form.moneda?.label} {props.form.moneda?.value}
+              </Text>
+            </View>
+
+            <View style={ComponentStyles.form.column}>
+              <Text style={ComponentStyles.form.text}>
+                Dirección: {props.form.direccion}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Teléfono: {props.form.telefono}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Email: {props.form.email}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Descuento: {props.form.descuento}%
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Fecha de emisión: {FormatoFecha(props.form.fechaEmision)}
+              </Text>
+              <Text style={ComponentStyles.form.text}>
+                Fecha de vencimiento: {FormatoFecha(props.form.fechaVencimiento)}
+              </Text>
+            </View>
+          </View>
+          <Text style={ComponentStyles.form.text}>
             {`Descripción: ${props.form.descripcion}`}
           </Text>
-          {props.items.map((item, index) => (
-            <Fragment key={`elemento_${index}`}>
-              {TableRowComponent(item)}
-            </Fragment>
-          ))}
+
+          {TableHeadersComponent()}
+
+          {TableRowsComponent(props.items)}
 
           {TableFooterComponent()}
 
-          <Text style={styles.text}>
-            Con estas y semejantes razones perdía el pobre caballero el juicio, y
-            desvelábase por entenderlas, y desentrañarles el sentido, que no se lo
-            sacara, ni las entendiera el mismo Aristóteles, si resucitara para sólo
-            ello. No estaba muy bien con las heridas que don Belianis daba y
-            recibía, porque se imaginaba que por grandes maestros que le hubiesen
-            curado, no dejaría de tener el rostro y todo el cuerpo lleno de
-            cicatrices y señales; pero con todo alababa en su autor aquel acabar su
-            libro con la promesa de aquella inacabable aventura, y muchas veces le
-            vino deseo de tomar la pluma, y darle fin al pie de la letra como allí
-            se promete; y sin duda alguna lo hiciera, y aun saliera con ello, si
-            otros mayores y continuos pensamientos no se lo estorbaran. Tuvo muchas
-            veces competencia con el cura de su lugar (que era hombre docto graduado
-            en Sigüenza), sobre cuál había sido mejor caballero, Palmerín de
-            Inglaterra o Amadís de Gaula; mas maese Nicolás, barbero del mismo
-            pueblo, decía que ninguno llegaba al caballero del Febo, y que si alguno
-            se le podía comparar, era don Galaor, hermano de Amadís de Gaula, porque
-            tenía muy acomodada condición para todo; que no era caballero
-            melindroso, ni tan llorón como su hermano, y que en lo de la valentía no
-            le iba en zaga.
-          </Text>
-          <Text style={styles.text}>
-            En resolución, él se enfrascó tanto en su lectura, que se le pasaban las
-            noches leyendo de claro en claro, y los días de turbio en turbio, y así,
-            del poco dormir y del mucho leer, se le secó el cerebro, de manera que
-            vino a perder el juicio. Llenósele la fantasía de todo aquello que leía
-            en los libros, así de encantamientos, como de pendencias, batallas,
-            desafíos, heridas, requiebros, amores, tormentas y disparates
-            imposibles, y asentósele de tal modo en la imaginación que era verdad
-            toda aquella máquina de aquellas soñadas invenciones que leía, que para
-            él no había otra historia más cierta en el mundo.
-          </Text>
           <Text style={styles.subtitle} break>
             Capítulo II: Que trata de la primera salida que de su tierra hizo el
             ingenioso Don Quijote
@@ -162,27 +133,63 @@ const styles = StyleSheet.create({
 });
 
 /**
- * Subcomponente fila de la tabla.
- * @param item Datos del elemento.
+ * Subcomponente con los headers de la tabla de elementos.
+ * @returns Component.
+ */
+const TableHeadersComponent = () => (
+  <View style={ComponentStyles.tableHeader.row}>
+    <Text style={ComponentStyles.tableHeader.name}>
+      Nombre
+    </Text>
+    <Text style={ComponentStyles.tableHeader.quantity}>
+      Cant.
+    </Text>
+    <Text style={ComponentStyles.tableHeader.price}>
+      Precio
+    </Text>
+    <Text style={ComponentStyles.tableHeader.total}>
+      Monto
+    </Text>
+  </View>
+);
+
+/**
+ * Subcomponente con el listado de elementos en la tabla.
+ * @param items Colección de elementos.
  * @returns Componente.
  */
-const TableRowComponent = (item: ItemInterface) => (
-  <View style={ComponentStyles.tableRow.row}>
-    <Text style={ComponentStyles.tableRow.name}>
-      {item.name || ""}
-    </Text>
-    <Text style={ComponentStyles.tableRow.quantity}>
-      {item.quantity}
-    </Text>
-    <Text style={ComponentStyles.tableRow.price}>
-      {FormatoDinero(item.price)}
-    </Text>
-    <Text style={ComponentStyles.tableRow.total}>
-      {FormatoDinero(item.price * item.quantity)}
-    </Text>
+const TableRowsComponent = (items: ItemInterface[]) => (
+  <View>
+    {items.length === 0 && (
+      <View style={ComponentStyles.tableRow.row}>
+        <Text style={ComponentStyles.tableRow.row_empty}>
+          Sin elementos
+        </Text>
+      </View>
+    )}
+    {items.map((item, index) => (
+      <View style={ComponentStyles.tableRow.row} key={`elemento_${index}`}>
+        <Text style={ComponentStyles.tableRow.name}>
+          {item.name || ""}
+        </Text>
+        <Text style={ComponentStyles.tableRow.quantity}>
+          {item.quantity}
+        </Text>
+        <Text style={ComponentStyles.tableRow.price}>
+          {FormatoDinero(item.price)}
+        </Text>
+        <Text style={ComponentStyles.tableRow.total}>
+          {FormatoDinero(item.price * item.quantity)}
+        </Text>
+      </View>
+    ))}
   </View>
 )
 
+/**
+ * Subcomponente encargado de mostrar el subtotal, porcentaje de IVA y total.
+ * @returns Component.
+ */
 const TableFooterComponent = () => (
   <View>
     <View style={ComponentStyles.tableFooter.row}>
@@ -212,42 +219,113 @@ const TableFooterComponent = () => (
   </View>
 );
 
+const TABLE_BORDER_COLOR = "#000000";
+const TABLE_TEXT_SIZE = 12;
+
 const ComponentStyles = {
-  tableHeader: StyleSheet.create({}),
-  tableRow: StyleSheet.create({
+  form: StyleSheet.create({
+    row: {
+      flexDirection: "row",        // <‑‑ columnas en fila
+      justifyContent: "space-between",
+      marginBottom: 10,
+    },
+    column: {
+      width: "48%",                // 48% + 4% de margen = 100%
+    },
+    text: {
+      fontSize: 12,
+      lineHeight: 1.5,
+    },
+  }),
+  tableHeader: StyleSheet.create({
     row: {
       flexDirection: "row",
-      borderBottomColor: borderColor,
+      backgroundColor: "gray",
+      borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
     },
+    row_empty: {
+      width: "100%",
+      fontSize: TABLE_TEXT_SIZE,
+      textAlign: "center",
+      paddingLeft: 8,
+    },
     name: {
       width: "55%",
-      fontSize: 14,
+      color: "white",
+      fontSize: TABLE_TEXT_SIZE,
       textAlign: "left",
-      borderRightColor: borderColor,
+      borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
       paddingLeft: 8,
     },
     quantity: {
       width: "10%",
-      fontSize: 14,
-      borderRightColor: borderColor,
+      color: "white",
+      fontSize: TABLE_TEXT_SIZE,
+      borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
       textAlign: "right",
       paddingRight: 8,
     },
     price: {
       width: "15%",
-      fontSize: 14,
-      borderRightColor: borderColor,
+      color: "white",
+      fontSize: TABLE_TEXT_SIZE,
+      borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
       textAlign: "right",
       paddingRight: 8,
     },
     total: {
       width: "20%",
-      fontSize: 14,
+      color: "white",
+      fontSize: TABLE_TEXT_SIZE,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+  }),
+  tableRow: StyleSheet.create({
+    row: {
+      flexDirection: "row",
+      borderBottomColor: TABLE_BORDER_COLOR,
+      borderBottomWidth: 1,
+      alignItems: "center",
+    },
+    row_empty: {
+      width: "100%",
+      fontSize: TABLE_TEXT_SIZE,
+      textAlign: "center",
+      paddingLeft: 8,
+    },
+    name: {
+      width: "55%",
+      fontSize: TABLE_TEXT_SIZE,
+      textAlign: "left",
+      borderRightColor: TABLE_BORDER_COLOR,
+      borderRightWidth: 1,
+      paddingLeft: 8,
+    },
+    quantity: {
+      width: "10%",
+      fontSize: TABLE_TEXT_SIZE,
+      borderRightColor: TABLE_BORDER_COLOR,
+      borderRightWidth: 1,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+    price: {
+      width: "15%",
+      fontSize: TABLE_TEXT_SIZE,
+      borderRightColor: TABLE_BORDER_COLOR,
+      borderRightWidth: 1,
+      textAlign: "right",
+      paddingRight: 8,
+    },
+    total: {
+      width: "20%",
+      fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
       paddingRight: 8,
     },
@@ -255,21 +333,22 @@ const ComponentStyles = {
   tableFooter: StyleSheet.create({
     row: {
       flexDirection: "row",
-      borderBottomColor: borderColor,
+      backgroundColor: "lightgray",
+      borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
     },
     text: {
       width: "80%",
-      fontSize: 14,
-      borderRightColor: borderColor,
+      fontSize: TABLE_TEXT_SIZE,
+      borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
       textAlign: "right",
       paddingRight: 8,
     },
     value: {
       width: "20%",
-      fontSize: 14,
+      fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
       paddingRight: 8,
     },
