@@ -1,3 +1,5 @@
+import type dayjs from "dayjs";
+
 export interface FormInterface {
   cliente: string;
   empresa: string;
@@ -9,8 +11,8 @@ export interface FormInterface {
   iva: number;
   moneda: MonedaInterface | null;
   descuento: number;
-  fechaEmision: Date;
-  fechaVencimiento: Date | null;
+  fechaEmision: dayjs.Dayjs;
+  fechaVencimiento: dayjs.Dayjs | null;
   descripcion: string;
 }
 
