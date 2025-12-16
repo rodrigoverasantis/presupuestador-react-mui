@@ -89,6 +89,7 @@ export default function Form(props: FormPropsInterface) {
             value={props.form.moneda}
             onChange={(_, value) => props.handleEditarFormulario({ moneda: value })}
             getOptionLabel={(option) => `${option.label} (${option.value})`}
+            noOptionsText="Sin opciones"
             size="small"
             fullWidth
             renderInput={(params) => (
