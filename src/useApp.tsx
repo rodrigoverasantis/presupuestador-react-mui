@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { type FormInterface, type ItemInterface } from "./interfaces";
+import dayjs from "dayjs";
 
 export default function UseApp() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -71,7 +72,7 @@ const FORM_INITIAL_VALUES = {
   iva: 0,
   moneda: null,
   descuento: 0,
-  fechaEmision: new Date(),
+  fechaEmision: dayjs(),
   fechaVencimiento: null,
   descripcion: "",
   items: [],
