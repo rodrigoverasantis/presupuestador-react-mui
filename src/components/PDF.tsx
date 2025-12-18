@@ -1,6 +1,6 @@
 import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
 import type { ItemInterface, PreviewPropsInterface } from "../interfaces";
-import { FormatoFecha, FormatoDinero } from "../utils";
+import { FormatoFecha, FormatoDinero, MontoDescuento, MontoIva, MontoSubtotal } from "../utils";
 
 export default function PDF(props: PreviewPropsInterface) {
 
@@ -61,11 +61,7 @@ export default function PDF(props: PreviewPropsInterface) {
             {`Descripción: ${props.form.descripcion}`}
           </Text>
 
-          {TableHeadersComponent()}
-
-          {TableRowsComponent(props.items)}
-
-          {TableFooterComponent()}
+          {TableComponent(props.items, props.form.descuento, props.form.iva)}
 
           <Text style={styles.subtitle} break>
             Capítulo II: Que trata de la primera salida que de su tierra hizo el
@@ -75,7 +71,7 @@ export default function PDF(props: PreviewPropsInterface) {
             src="https://upload.wikimedia.org/wikipedia/commons/2/20/Don_Quijote_and_Sancho_Panza.jpg"
             style={styles.image}
           />
-          <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+          <Text style={ComponentStyles.document.pageNumber} render={({ pageNumber, totalPages }) => (
             `${pageNumber} / ${totalPages}`
           )} fixed />
         </Page>
@@ -133,88 +129,86 @@ const styles = StyleSheet.create({
 });
 
 /**
- * Subcomponente con los headers de la tabla de elementos.
- * @returns Component.
- */
-const TableHeadersComponent = () => (
-  <View style={ComponentStyles.tableHeader.row}>
-    <Text style={ComponentStyles.tableHeader.name}>
-      Nombre
-    </Text>
-    <Text style={ComponentStyles.tableHeader.quantity}>
-      Cant.
-    </Text>
-    <Text style={ComponentStyles.tableHeader.price}>
-      Precio
-    </Text>
-    <Text style={ComponentStyles.tableHeader.total}>
-      Monto
-    </Text>
-  </View>
-);
-
-/**
- * Subcomponente con el listado de elementos en la tabla.
+ * Subcomponente con la tabla de elementos en el presupuesto.
  * @param items Colección de elementos.
+ * @param descuento Porcentaje de descuento.
+ * @param iva Porcentaje de impuesto al valor agregado.
  * @returns Componente.
  */
-const TableRowsComponent = (items: ItemInterface[]) => (
+const TableComponent = (items: ItemInterface[], descuento: number, iva: number) => (
   <View>
-    {items.length === 0 && (
-      <View style={ComponentStyles.tableRow.row}>
-        <Text style={ComponentStyles.tableRow.row_empty}>
-          Sin elementos
-        </Text>
-      </View>
-    )}
-    {items.map((item, index) => (
-      <View style={ComponentStyles.tableRow.row} key={`elemento_${index}`}>
-        <Text style={ComponentStyles.tableRow.name}>
-          {item.name || ""}
-        </Text>
-        <Text style={ComponentStyles.tableRow.quantity}>
-          {item.quantity}
-        </Text>
-        <Text style={ComponentStyles.tableRow.price}>
-          {FormatoDinero(item.price)}
-        </Text>
-        <Text style={ComponentStyles.tableRow.total}>
-          {FormatoDinero(item.price * item.quantity)}
-        </Text>
-      </View>
-    ))}
-  </View>
-)
+    {/* TABLE HEADER */}
+    <View style={ComponentStyles.table.header_row}>
+      <Text style={ComponentStyles.table.header_name}>
+        Nombre
+      </Text>
+      <Text style={ComponentStyles.table.header_quantity}>
+        Cant.
+      </Text>
+      <Text style={ComponentStyles.table.header_price}>
+        Precio
+      </Text>
+      <Text style={ComponentStyles.table.header_total}>
+        Monto
+      </Text>
+    </View>
 
-/**
- * Subcomponente encargado de mostrar el subtotal, porcentaje de IVA y total.
- * @returns Component.
- */
-const TableFooterComponent = () => (
-  <View>
-    <View style={ComponentStyles.tableFooter.row}>
-      <Text style={ComponentStyles.tableFooter.text}>
-        Subtotal
-      </Text>
-      <Text style={ComponentStyles.tableFooter.value}>
-        $123.456
-      </Text>
+    {/* TABLE BODY */}
+    <View>
+      {/* SI NO HAY ELEMENTO */}
+      {items.length === 0 && (
+        <View style={ComponentStyles.table.body_row}>
+          <Text style={ComponentStyles.table.body_row_empty}>
+            Sin elementos
+          </Text>
+        </View>
+      )}
+
+      {/* COLECCIÓN DE ELEMENTOS */}
+      {items.map((item, index) => (
+        <View style={ComponentStyles.table.body_row} key={`elemento_${index}`}>
+          <Text style={ComponentStyles.table.body_name}>
+            {item.name}
+          </Text>
+          <Text style={ComponentStyles.table.body_quantity}>
+            {item.quantity}
+          </Text>
+          <Text style={ComponentStyles.table.body_price}>
+            {FormatoDinero(item.price)}
+          </Text>
+          <Text style={ComponentStyles.table.body_total}>
+            {FormatoDinero(item.price * item.quantity)}
+          </Text>
+        </View>
+      ))}
     </View>
-    <View style={ComponentStyles.tableFooter.row}>
-      <Text style={ComponentStyles.tableFooter.text}>
-        IVA 10%
-      </Text>
-      <Text style={ComponentStyles.tableFooter.value}>
-        $12.345
-      </Text>
-    </View>
-    <View style={ComponentStyles.tableFooter.row}>
-      <Text style={ComponentStyles.tableFooter.text}>
-        Total
-      </Text>
-      <Text style={ComponentStyles.tableFooter.value}>
-        $135.680
-      </Text>
+
+    {/* TABLE FOOTER */}
+    <View>
+      <View style={ComponentStyles.table.footer_row}>
+        <Text style={ComponentStyles.table.footer_text}>
+          {descuento > 0 ? `Subtotal con ${descuento}% de descuento` : "Subtotal"}
+        </Text>
+        <Text style={ComponentStyles.table.footer_value}>
+          {descuento > 0 ? FormatoDinero(MontoDescuento(items, descuento)) : FormatoDinero(MontoSubtotal(items))}
+        </Text>
+      </View>
+      <View style={ComponentStyles.table.footer_row}>
+        <Text style={ComponentStyles.table.footer_text}>
+          IVA {iva}%
+        </Text>
+        <Text style={ComponentStyles.table.footer_value}>
+          {FormatoDinero(MontoIva(items, descuento, iva))}
+        </Text>
+      </View>
+      <View style={ComponentStyles.table.footer_row}>
+        <Text style={ComponentStyles.table.footer_text}>
+          Total
+        </Text>
+        <Text style={ComponentStyles.table.footer_value}>
+          {FormatoDinero(MontoDescuento(items, descuento) + MontoIva(items, descuento, iva))}
+        </Text>
+      </View>
     </View>
   </View>
 );
@@ -223,6 +217,17 @@ const TABLE_BORDER_COLOR = "#000000";
 const TABLE_TEXT_SIZE = 12;
 
 const ComponentStyles = {
+  document: StyleSheet.create({
+    pageNumber: {
+      position: "absolute",
+      fontSize: 12,
+      bottom: 30,
+      left: 0,
+      right: 0,
+      textAlign: "center",
+      color: "grey",
+    },
+  }),
   form: StyleSheet.create({
     row: {
       flexDirection: "row",        // <‑‑ columnas en fila
@@ -237,21 +242,15 @@ const ComponentStyles = {
       lineHeight: 1.5,
     },
   }),
-  tableHeader: StyleSheet.create({
-    row: {
+  table: StyleSheet.create({
+    header_row: {
       flexDirection: "row",
       backgroundColor: "gray",
       borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
     },
-    row_empty: {
-      width: "100%",
-      fontSize: TABLE_TEXT_SIZE,
-      textAlign: "center",
-      paddingLeft: 8,
-    },
-    name: {
+    header_name: {
       width: "55%",
       color: "white",
       fontSize: TABLE_TEXT_SIZE,
@@ -260,7 +259,7 @@ const ComponentStyles = {
       borderRightWidth: 1,
       paddingLeft: 8,
     },
-    quantity: {
+    header_quantity: {
       width: "10%",
       color: "white",
       fontSize: TABLE_TEXT_SIZE,
@@ -269,7 +268,7 @@ const ComponentStyles = {
       textAlign: "right",
       paddingRight: 8,
     },
-    price: {
+    header_price: {
       width: "15%",
       color: "white",
       fontSize: TABLE_TEXT_SIZE,
@@ -278,28 +277,26 @@ const ComponentStyles = {
       textAlign: "right",
       paddingRight: 8,
     },
-    total: {
+    header_total: {
       width: "20%",
       color: "white",
       fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
       paddingRight: 8,
     },
-  }),
-  tableRow: StyleSheet.create({
-    row: {
+    body_row: {
       flexDirection: "row",
       borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
     },
-    row_empty: {
+    body_row_empty: {
       width: "100%",
       fontSize: TABLE_TEXT_SIZE,
       textAlign: "center",
       paddingLeft: 8,
     },
-    name: {
+    body_name: {
       width: "55%",
       fontSize: TABLE_TEXT_SIZE,
       textAlign: "left",
@@ -307,7 +304,7 @@ const ComponentStyles = {
       borderRightWidth: 1,
       paddingLeft: 8,
     },
-    quantity: {
+    body_quantity: {
       width: "10%",
       fontSize: TABLE_TEXT_SIZE,
       borderRightColor: TABLE_BORDER_COLOR,
@@ -315,7 +312,7 @@ const ComponentStyles = {
       textAlign: "right",
       paddingRight: 8,
     },
-    price: {
+    body_price: {
       width: "15%",
       fontSize: TABLE_TEXT_SIZE,
       borderRightColor: TABLE_BORDER_COLOR,
@@ -323,22 +320,20 @@ const ComponentStyles = {
       textAlign: "right",
       paddingRight: 8,
     },
-    total: {
+    body_total: {
       width: "20%",
       fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
       paddingRight: 8,
     },
-  }),
-  tableFooter: StyleSheet.create({
-    row: {
+    footer_row: {
       flexDirection: "row",
       backgroundColor: "lightgray",
       borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
     },
-    text: {
+    footer_text: {
       width: "80%",
       fontSize: TABLE_TEXT_SIZE,
       borderRightColor: TABLE_BORDER_COLOR,
@@ -346,7 +341,7 @@ const ComponentStyles = {
       textAlign: "right",
       paddingRight: 8,
     },
-    value: {
+    footer_value: {
       width: "20%",
       fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
