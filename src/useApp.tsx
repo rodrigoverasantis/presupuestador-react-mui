@@ -61,7 +61,7 @@ export default function UseApp() {
   }
 }
 
-const FORM_INITIAL_VALUES = {
+const FORM_INITIAL_VALUES: FormInterface = {
   cliente: "",
   empresa: "",
   rut: "",
@@ -75,5 +75,4 @@ const FORM_INITIAL_VALUES = {
   fechaEmision: dayjs(),
   fechaVencimiento: null,
   descripcion: "",
-  items: [],
 }
