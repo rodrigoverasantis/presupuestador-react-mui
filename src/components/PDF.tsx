@@ -11,52 +11,8 @@ export default function PDF(props: PreviewPropsInterface) {
           <Text style={styles.header}>
             ~ Created with react-pdf ~
           </Text>
-          <Text style={styles.title}>Don Quijote de la Mancha</Text>
-          <Text style={styles.author}>Miguel de Cervantes aa</Text>
 
-          <View style={ComponentStyles.form.row}>
-            <View style={ComponentStyles.form.column}>
-              <Text style={ComponentStyles.form.text}>
-                Cliente: {props.form.cliente}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Empresa: {props.form.empresa}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                RUT: {props.form.rut}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Ciudad: {props.form.ciudad}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                IVA: {props.form.iva}%
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Moneda: {props.form.moneda?.label} {props.form.moneda?.value}
-              </Text>
-            </View>
 
-            <View style={ComponentStyles.form.column}>
-              <Text style={ComponentStyles.form.text}>
-                Dirección: {props.form.direccion}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Teléfono: {props.form.telefono}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Email: {props.form.email}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Descuento: {props.form.descuento}%
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Fecha de emisión: {FormatoFecha(props.form.fechaEmision)}
-              </Text>
-              <Text style={ComponentStyles.form.text}>
-                Fecha de vencimiento: {FormatoFecha(props.form.fechaVencimiento)}
-              </Text>
-            </View>
-          </View>
           <Text style={ComponentStyles.form.text}>
             {`Descripción: ${props.form.descripcion}`}
           </Text>
