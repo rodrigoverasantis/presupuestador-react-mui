@@ -80,53 +80,56 @@ export default function PDF(props: PreviewPropsInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  body: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35,
-  },
-  title: {
-    fontSize: 24,
-    textAlign: "center",
-    fontFamily: "Times-Roman"
-  },
-  author: {
-    fontSize: 12,
-    textAlign: "center",
-    marginBottom: 40,
-  },
-  subtitle: {
-    fontSize: 18,
-    margin: 12,
-    fontFamily: "Times-Roman"
-  },
-  text: {
-    margin: 2,
-    fontSize: 14,
-    textAlign: "justify",
-    fontFamily: "Times-Roman"
-  },
-  image: {
-    marginVertical: 15,
-    marginHorizontal: 100,
-  },
-  header: {
-    fontSize: 12,
-    marginBottom: 20,
-    textAlign: "center",
-    color: "grey",
-  },
-  pageNumber: {
-    position: "absolute",
-    fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-    color: "grey",
-  },
-});
+/**
+ * Subcomponente con los datos del formulario.
+ * @param form Datos del formulario.
+ * @returns Component.
+ */
+const FormComponent = (form: FormInterface) => (
+  <View style={ComponentStyles.form.row}>
+    <View style={ComponentStyles.form.column}>
+      <Text style={ComponentStyles.form.text}>
+        Cliente: {form.cliente}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Empresa: {form.empresa}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        RUT: {form.rut}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Ciudad: {form.ciudad}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        IVA: {form.iva}%
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Moneda: {form.moneda?.label} {form.moneda?.value}
+      </Text>
+    </View>
+
+    <View style={ComponentStyles.form.column}>
+      <Text style={ComponentStyles.form.text}>
+        Dirección: {form.direccion}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Teléfono: {form.telefono}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Email: {form.email}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Descuento: {form.descuento}%
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Fecha de emisión: {FormatoFecha(form.fechaEmision)}
+      </Text>
+      <Text style={ComponentStyles.form.text}>
+        Fecha de vencimiento: {FormatoFecha(form.fechaVencimiento)}
+      </Text>
+    </View>
+  </View>
+);
 
 /**
  * Subcomponente con la tabla de elementos en el presupuesto.
