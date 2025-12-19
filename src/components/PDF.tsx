@@ -1,5 +1,5 @@
 import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
-import type { ItemInterface, PreviewPropsInterface } from "../interfaces";
+import type { FormInterface, ItemInterface, PreviewPropsInterface } from "../interfaces";
 import { FormatoFecha, FormatoDinero, MontoDescuento, MontoIva, MontoSubtotal } from "../utils";
 
 export default function PDF(props: PreviewPropsInterface) {
@@ -16,6 +16,8 @@ export default function PDF(props: PreviewPropsInterface) {
           <Text style={ComponentStyles.form.text}>
             {`Descripción: ${props.form.descripcion}`}
           </Text>
+
+          {FormComponent(props.form)}
 
           {TableComponent(props.items, props.form.descuento, props.form.iva)}
 
