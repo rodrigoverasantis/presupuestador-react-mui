@@ -218,6 +218,21 @@ const TABLE_TEXT_SIZE = 12;
 
 const ComponentStyles = {
   document: StyleSheet.create({
+    body: {
+      paddingTop: 20,
+      paddingBottom: 20,
+      paddingHorizontal: 40,
+    },
+    header: {
+      fontSize: 24,
+      textAlign: "right",
+      marginBottom: 20,
+      color: "slategray",
+    },
+    image: {
+      marginVertical: 15,
+      marginHorizontal: 100,
+    },
     pageNumber: {
       position: "absolute",
       fontSize: 12,
@@ -230,12 +245,12 @@ const ComponentStyles = {
   }),
   form: StyleSheet.create({
     row: {
-      flexDirection: "row",        // <‑‑ columnas en fila
+      flexDirection: "row",
       justifyContent: "space-between",
       marginBottom: 10,
     },
     column: {
-      width: "48%",                // 48% + 4% de margen = 100%
+      width: "48%",
     },
     text: {
       fontSize: 12,
