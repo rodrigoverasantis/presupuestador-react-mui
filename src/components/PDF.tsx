@@ -19,10 +19,6 @@ export default function PDF(props: PreviewPropsInterface) {
 
           {TableComponent(props.items, props.form.descuento, props.form.iva)}
 
-          <Text style={styles.subtitle} break>
-            Capítulo II: Que trata de la primera salida que de su tierra hizo el
-            ingenioso Don Quijote
-          </Text>
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/2/20/Don_Quijote_and_Sancho_Panza.jpg"
             style={ComponentStyles.document.image}
