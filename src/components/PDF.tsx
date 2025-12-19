@@ -7,9 +7,9 @@ export default function PDF(props: PreviewPropsInterface) {
   return (
     <PDFViewer style={{ width: "100%", height: 900 }}>
       <Document key="pdf-document">
-        <Page size="A4" style={styles.body}>
-          <Text style={styles.header}>
-            ~ Created with react-pdf ~
+        <Page size="A4" style={ComponentStyles.document.body}>
+          <Text style={ComponentStyles.document.header}>
+            Presupuestos Gratis Chile
           </Text>
 
 
@@ -25,8 +25,9 @@ export default function PDF(props: PreviewPropsInterface) {
           </Text>
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/2/20/Don_Quijote_and_Sancho_Panza.jpg"
-            style={styles.image}
+            style={ComponentStyles.document.image}
           />
+
           <Text style={ComponentStyles.document.pageNumber} render={({ pageNumber, totalPages }) => (
             `${pageNumber} / ${totalPages}`
           )} fixed />
