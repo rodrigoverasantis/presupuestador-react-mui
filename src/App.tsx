@@ -11,7 +11,7 @@ export default function App() {
   const useApp = UseApp();
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Tabs
         value={useApp.tabIndex}
         onChange={(_, value) => useApp.setTabIndex(value)}
