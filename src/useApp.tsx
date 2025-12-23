@@ -62,17 +62,26 @@ export default function UseApp() {
 }
 
 const FORM_INITIAL_VALUES: FormInterface = {
-  cliente: "",
-  empresa: "",
-  rut: "",
-  direccion: "",
-  telefono: "",
-  email: "",
-  ciudad: "",
+  cliente: {
+    nombre: "",
+    rut: "",
+    email: "",
+    telefono: "",
+    ciudad: "",
+    direccion: "",
+  },
+  empresa: {
+    nombre: "",
+    rut: "",
+    email: "",
+    telefono: "",
+    ciudad: "",
+    direccion: "",
+  },
   iva: 0,
   moneda: null,
   descuento: 0,
   fechaEmision: dayjs(),
-  fechaVencimiento: null,
+  fechaVencimiento: undefined,
   descripcion: "",
 }

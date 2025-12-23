@@ -1,19 +1,32 @@
 import type dayjs from "dayjs";
 
 export interface FormInterface {
-  cliente: string;
-  empresa: string;
-  rut: string;
-  direccion: string;
-  telefono: string;
-  email: string;
-  ciudad: string;
+  empresa: EmpresaInterface;
+  cliente: ClienteInterface;
   iva: number;
   moneda: MonedaInterface | null;
   descuento: number;
   fechaEmision: dayjs.Dayjs;
-  fechaVencimiento: dayjs.Dayjs | null;
+  fechaVencimiento?: dayjs.Dayjs;
   descripcion: string;
+}
+
+export interface EmpresaInterface {
+  nombre: string;
+  rut: string;
+  email: string;
+  telefono: string;
+  ciudad: string;
+  direccion: string;
+}
+
+export interface ClienteInterface {
+  nombre: string;
+  rut: string;
+  email: string;
+  telefono: string;
+  ciudad: string;
+  direccion: string;
 }
 
 export interface ItemInterface {
@@ -43,8 +56,4 @@ export interface ItemsPropsInterface {
 export interface PreviewPropsInterface {
   form: FormInterface;
   items: ItemInterface[];
-  // subtotal: number;
-  // iva: number;
-  // descuento: number;
-  // total: number;
 }
