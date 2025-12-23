@@ -8,9 +8,17 @@ export default function PDF(props: PreviewPropsInterface) {
     <PDFViewer style={{ width: "100%", height: 900 }}>
       <Document key="pdf-document">
         <Page size="A4" style={ComponentStyles.document.body}>
-          <Text style={ComponentStyles.document.header}>
-            Presupuestos Gratis Chile
-          </Text>
+
+          <View style={ComponentStyles.document.header}>
+            <Image
+              src="https://cdn.logojoy.com/wp-content/uploads/20240619163403/fedex-logo-2-e1718830414149.png"
+              style={ComponentStyles.document.header_logo}
+            />
+
+            <Text style={ComponentStyles.document.header_title}>
+              Presupuestos Gratis Chile
+            </Text>
+          </View>
 
 
           <Text style={ComponentStyles.form.text}>
@@ -182,10 +190,18 @@ const ComponentStyles = {
       paddingHorizontal: 40,
     },
     header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 20,
+    },
+    header_title: {
       fontSize: 24,
       textAlign: "right",
-      marginBottom: 20,
       color: "slategray",
+    },
+    header_logo: {
+      width: 100,
     },
     image: {
       marginVertical: 15,
