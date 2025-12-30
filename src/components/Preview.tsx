@@ -20,87 +20,101 @@ export default function Preview(props: PreviewPropsInterface) {
  * @returns Component.
  */
 const FormComponent = (form: FormInterface) => (
-  <Paper variant="outlined" sx={{ p: 2 }}>
-    <Grid container spacing={1}>
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Typography>
-          Cliente: {form.cliente}
+  <Grid container spacing={2}>
+    <Grid size={{ xs: 12, md: 6 }}>
+      <Paper variant="outlined" sx={{ p: 2 }}>
+        <Typography variant="h5" gutterBottom>
+          Datos de la empresa
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
         <Typography>
-          Empresa: {form.empresa}
+          Nombre: {form.empresa.nombre}
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
         <Typography>
-          RUT: {form.rut}
+          RUT: {form.empresa.rut}
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
         <Typography>
-          Dirección: {form.direccion}
+          Dirección: {form.empresa.direccion}
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
         <Typography>
-          Teléfono: {form.telefono}
+          Teléfono: {form.empresa.telefono}
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
         <Typography>
-          Email: {form.email}
+          Email: {form.empresa.email}
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
         <Typography>
-          Ciudad: {form.ciudad}
+          Ciudad: {form.empresa.ciudad}
         </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Typography>
-          IVA: {form.iva}%
-        </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Typography>
-          Moneda: {FormatoMoneda(form.moneda)}
-        </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Typography>
-          Descuento: {form.descuento}%
-        </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Typography>
-          Fecha emisión: {FormatoFecha(form.fechaEmision)}
-        </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Typography>
-          Fecha vencimiento: {FormatoFecha(form.fechaVencimiento)}
-        </Typography>
-      </Grid>
-
-      <Grid size={{ xs: 12 }}>
-        <Typography>
-          Descripción: {form.descripcion}
-        </Typography>
-      </Grid>
+      </Paper>
     </Grid>
-  </Paper>
+
+    <Grid size={{ xs: 12, md: 6 }}>
+      <Paper variant="outlined" sx={{ p: 2 }}>
+        <Typography variant="h5" gutterBottom>
+          Datos del cliente
+        </Typography>
+        <Typography>
+          Nombre: {form.cliente.nombre}
+        </Typography>
+        <Typography>
+          RUT: {form.cliente.rut}
+        </Typography>
+        <Typography>
+          Dirección: {form.cliente.direccion}
+        </Typography>
+        <Typography>
+          Teléfono: {form.cliente.telefono}
+        </Typography>
+        <Typography>
+          Email: {form.cliente.email}
+        </Typography>
+        <Typography>
+          Ciudad: {form.cliente.ciudad}
+        </Typography>
+      </Paper>
+    </Grid>
+
+    <Grid size={{ xs: 12 }}>
+      <Paper variant="outlined" sx={{ p: 2 }}>
+        <Grid container spacing={2}>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Typography>
+              IVA: {form.iva}%
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Typography>
+              Descuento: {form.descuento}%
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Typography>
+              Moneda: {FormatoMoneda(form.moneda)}
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography>
+              Fecha emisión: {FormatoFecha(form.fechaEmision)}
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography>
+              Fecha vencimiento: {FormatoFecha(form.fechaVencimiento)}
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 12 }}>
+            <Typography>
+              Descripción: {form.descripcion}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Grid>
+  </Grid>
 );
 
 /**
