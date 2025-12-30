@@ -8,6 +8,22 @@ export default function UseApp() {
   const [items, setItems] = useState<ItemInterface[]>([]);
 
   /**
+   * Método encargado de combinar los datos de la empresa con los nuevos datos.
+   * @param newData Datos actualizados de la empresa.
+   */
+  const handleEditarEmpresa = (newData: object) => {
+    setForm({ ...form, empresa: { ...form.empresa, ...newData } });
+  }
+
+  /**
+   * Método encargado de combinar los datos del cliente con los nuevos datos.
+   * @param newData Datos actualizados del cliente.
+   */
+  const handleEditarCliente = (newData: object) => {
+    setForm({ ...form, cliente: { ...form.cliente, ...newData } });
+  }
+
+  /**
    * Método encargado de combinar los datos del formulario con los nuevos datos.
    * @param newData Datos actualizados del formulario.
    */
@@ -52,6 +68,8 @@ export default function UseApp() {
     setTabIndex,
 
     form,
+    handleEditarEmpresa,
+    handleEditarCliente,
     handleEditarFormulario,
 
     items: items,
