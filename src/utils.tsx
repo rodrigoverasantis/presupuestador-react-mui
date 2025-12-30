@@ -57,7 +57,7 @@ export const FormatoDinero = (valor: number, divisa: string = "CLP") => {
  * @param fecha Fecha a formatear.
  * @returns Fecha formateada a DD/MM/YYYY.
  */
-export const FormatoFecha = (fecha: dayjs.Dayjs | null) => {
+export const FormatoFecha = (fecha: dayjs.Dayjs | null | undefined) => {
   if (!dayjs.isDayjs(fecha)) {
     return "";
   }
