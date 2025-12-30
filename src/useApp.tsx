@@ -80,26 +80,26 @@ export default function UseApp() {
 }
 
 const FORM_INITIAL_VALUES: FormInterface = {
-  cliente: {
-    nombre: "",
-    rut: "",
-    email: "",
-    telefono: "",
-    ciudad: "",
-    direccion: "",
-  },
   empresa: {
-    nombre: "",
-    rut: "",
-    email: "",
-    telefono: "",
-    ciudad: "",
-    direccion: "",
+    nombre: "Lorem Ipsum Company",
+    rut: "78.901.234-5",
+    email: "contacto@loremipsum.com",
+    telefono: "56 9 87654321",
+    ciudad: "Santiago Centro",
+    direccion: "Calle Falsa de Empresa #123",
   },
-  iva: 0,
+  cliente: {
+    nombre: "Armando Esteban Santander Riquelme",
+    rut: "12.345.678-9",
+    email: "armando.santander.r@gmail.com",
+    telefono: "56 9 87654321",
+    ciudad: "Concepción",
+    direccion: "Calle Falsa de Cliente #123",
+  },
+  iva: 19,
   moneda: null,
-  descuento: 0,
+  descuento: 10,
   fechaEmision: dayjs(),
   fechaVencimiento: undefined,
-  descripcion: "",
+  descripcion: "Presupuesto de prueba generado en la página de prueba",
 }
