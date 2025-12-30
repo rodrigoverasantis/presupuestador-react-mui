@@ -43,6 +43,8 @@ export interface MonedaInterface {
 
 export interface FormPropsInterface {
   form: FormInterface;
+  handleEditarEmpresa: (newData: object) => void,
+  handleEditarCliente: (newData: object) => void,
   handleEditarFormulario: (newData: object) => void,
 }
 
