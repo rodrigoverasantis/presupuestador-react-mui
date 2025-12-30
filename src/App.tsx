@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, use } from "react";
 import { Container, Stack, Tab, Tabs } from "@mui/material";
 import UseApp from "./useApp";
 
@@ -28,6 +28,8 @@ export default function App() {
         <Stack direction={"column"} spacing={2}>
           <FormComponent
             form={useApp.form}
+            handleEditarEmpresa={useApp.handleEditarEmpresa}
+            handleEditarCliente={useApp.handleEditarCliente}
             handleEditarFormulario={useApp.handleEditarFormulario}
           />
           <ItemsComponent
