@@ -21,7 +21,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Nombre"
                 value={props.form.empresa.nombre}
-                onChange={(event) => props.handleEditarFormulario({ cliente: event.target.value })}
+                onChange={(event) => props.handleEditarEmpresa({ nombre: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -30,7 +30,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="RUT"
                 value={props.form.empresa.rut}
-                onChange={(event) => props.handleEditarFormulario({ rut: event.target.value })}
+                onChange={(event) => props.handleEditarEmpresa({ rut: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -39,7 +39,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Email"
                 value={props.form.empresa.email}
-                onChange={(event) => props.handleEditarFormulario({ email: event.target.value })}
+                onChange={(event) => props.handleEditarEmpresa({ email: event.target.value })}
                 type="email"
                 size="small"
                 fullWidth
@@ -49,7 +49,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Teléfono"
                 value={props.form.empresa.telefono}
-                onChange={(event) => props.handleEditarFormulario({ telefono: event.target.value })}
+                onChange={(event) => props.handleEditarEmpresa({ telefono: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -58,7 +58,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Ciudad"
                 value={props.form.empresa.ciudad}
-                onChange={(event) => props.handleEditarFormulario({ ciudad: event.target.value })}
+                onChange={(event) => props.handleEditarEmpresa({ ciudad: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -67,7 +67,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Dirección"
                 value={props.form.empresa.direccion}
-                onChange={(event) => props.handleEditarFormulario({ direccion: event.target.value })}
+                onChange={(event) => props.handleEditarEmpresa({ direccion: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -89,7 +89,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Nombre"
                 value={props.form.cliente.nombre}
-                onChange={(event) => props.handleEditarFormulario({ cliente: event.target.value })}
+                onChange={(event) => props.handleEditarCliente({ nombre: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -98,7 +98,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="RUT"
                 value={props.form.cliente.rut}
-                onChange={(event) => props.handleEditarFormulario({ rut: event.target.value })}
+                onChange={(event) => props.handleEditarCliente({ rut: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -107,7 +107,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Email"
                 value={props.form.cliente.email}
-                onChange={(event) => props.handleEditarFormulario({ email: event.target.value })}
+                onChange={(event) => props.handleEditarCliente({ email: event.target.value })}
                 type="email"
                 size="small"
                 fullWidth
@@ -117,7 +117,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Teléfono"
                 value={props.form.cliente.telefono}
-                onChange={(event) => props.handleEditarFormulario({ telefono: event.target.value })}
+                onChange={(event) => props.handleEditarCliente({ telefono: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -126,7 +126,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Ciudad"
                 value={props.form.cliente.ciudad}
-                onChange={(event) => props.handleEditarFormulario({ ciudad: event.target.value })}
+                onChange={(event) => props.handleEditarCliente({ ciudad: event.target.value })}
                 size="small"
                 fullWidth
               />
@@ -135,7 +135,7 @@ export default function Form(props: FormPropsInterface) {
               <TextField
                 label="Dirección"
                 value={props.form.cliente.direccion}
-                onChange={(event) => props.handleEditarFormulario({ direccion: event.target.value })}
+                onChange={(event) => props.handleEditarCliente({ direccion: event.target.value })}
                 size="small"
                 fullWidth
               />
