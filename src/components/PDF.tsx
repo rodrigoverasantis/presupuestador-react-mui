@@ -1,6 +1,7 @@
 import { Page, Text, Document, StyleSheet, PDFViewer, Image, View } from "@react-pdf/renderer";
 import type { FormInterface, ItemInterface, PreviewPropsInterface } from "../interfaces";
 import { FormatoFecha, FormatoDinero, MontoDescuento, MontoIva, MontoSubtotal } from "../utils";
+import LoremIpsumLogo from "/logoipsum.png";
 
 export default function PDF(props: PreviewPropsInterface) {
 
@@ -11,7 +12,7 @@ export default function PDF(props: PreviewPropsInterface) {
 
           <View style={ComponentStyles.document.header}>
             <Image
-              src="https://cdn.logojoy.com/wp-content/uploads/20240619163403/fedex-logo-2-e1718830414149.png"
+              src={LoremIpsumLogo}
               style={ComponentStyles.document.header_logo}
             />
 
@@ -20,19 +21,9 @@ export default function PDF(props: PreviewPropsInterface) {
             </Text>
           </View>
 
-
-          <Text style={ComponentStyles.form.text}>
-            {`Descripción: ${props.form.descripcion}`}
-          </Text>
-
           {FormComponent(props.form)}
 
           {TableComponent(props.items, props.form.descuento, props.form.iva)}
-
-          <Image
-            src="https://upload.wikimedia.org/wikipedia/commons/2/20/Don_Quijote_and_Sancho_Panza.jpg"
-            style={ComponentStyles.document.image}
-          />
 
           <Text style={ComponentStyles.document.pageNumber} render={({ pageNumber, totalPages }) => (
             `${pageNumber} / ${totalPages}`
@@ -49,48 +40,68 @@ export default function PDF(props: PreviewPropsInterface) {
  * @returns Component.
  */
 const FormComponent = (form: FormInterface) => (
-  <View style={ComponentStyles.form.row}>
-    <View style={ComponentStyles.form.column}>
-      <Text style={ComponentStyles.form.text}>
-        Cliente: {form.cliente}
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        Empresa: {form.empresa}
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        RUT: {form.rut}
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        Ciudad: {form.ciudad}
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        IVA: {form.iva}%
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        Moneda: {form.moneda?.label} {form.moneda?.value}
-      </Text>
+  <View>
+    <View style={ComponentStyles.form.row}>
+      <View style={ComponentStyles.form.column}>
+        <Text style={ComponentStyles.form.text_title}>
+          Empresa {form.empresa.rut ? `[${form.empresa.rut}]` : ""}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          {form.empresa.nombre}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          Ubicación: {[form.empresa.ciudad, form.empresa.direccion].join(", ")}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          Correo: {form.empresa.email}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          Teléfono: {form.empresa.telefono}
+        </Text>
+      </View>
+
+      <View style={ComponentStyles.form.column}>
+        <Text style={ComponentStyles.form.text_title}>
+          Cliente {form.cliente.rut ? `[${form.cliente.rut}]` : ""}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          {form.cliente.nombre}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          Ubicación: {[form.cliente.ciudad, form.cliente.direccion].join(", ")}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          Correo: {form.cliente.email}
+        </Text>
+        <Text style={ComponentStyles.form.text}>
+          Teléfono: {form.cliente.telefono}
+        </Text>
+      </View>
     </View>
 
-    <View style={ComponentStyles.form.column}>
+    <View style={ComponentStyles.form.column_right}>
       <Text style={ComponentStyles.form.text}>
-        Dirección: {form.direccion}
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        Teléfono: {form.telefono}
-      </Text>
-      <Text style={ComponentStyles.form.text}>
-        Email: {form.email}
+        IVA: {form.iva}%
       </Text>
       <Text style={ComponentStyles.form.text}>
         Descuento: {form.descuento}%
       </Text>
       <Text style={ComponentStyles.form.text}>
-        Fecha de emisión: {FormatoFecha(form.fechaEmision)}
+        Moneda: {form.moneda?.label} {form.moneda?.value}
       </Text>
       <Text style={ComponentStyles.form.text}>
-        Fecha de vencimiento: {FormatoFecha(form.fechaVencimiento)}
+        Fecha de emisión: {FormatoFecha(form.fechaEmision)}
       </Text>
+      {form.fechaVencimiento && (
+        <Text style={ComponentStyles.form.text}>
+          Fecha de vencimiento: {FormatoFecha(form.fechaVencimiento)}
+        </Text>
+      )}
     </View>
+
+    <Text style={ComponentStyles.form.text}>
+      {`Descripción: ${form.descripcion}`}
+    </Text>
   </View>
 );
 
@@ -102,19 +113,19 @@ const FormComponent = (form: FormInterface) => (
  * @returns Componente.
  */
 const TableComponent = (items: ItemInterface[], descuento: number, iva: number) => (
-  <View>
+  <View style={{ marginTop: 20 }}>
     {/* TABLE HEADER */}
     <View style={ComponentStyles.table.header_row}>
-      <Text style={ComponentStyles.table.header_name}>
+      <Text style={[ComponentStyles.table.header_text, ComponentStyles.table.header_name]}>
         Nombre
       </Text>
-      <Text style={ComponentStyles.table.header_quantity}>
+      <Text style={[ComponentStyles.table.header_text, ComponentStyles.table.header_quantity]}>
         Cant.
       </Text>
-      <Text style={ComponentStyles.table.header_price}>
+      <Text style={[ComponentStyles.table.header_text, ComponentStyles.table.header_price]}>
         Precio
       </Text>
-      <Text style={ComponentStyles.table.header_total}>
+      <Text style={[ComponentStyles.table.header_text, ComponentStyles.table.header_amount]}>
         Monto
       </Text>
     </View>
@@ -133,16 +144,16 @@ const TableComponent = (items: ItemInterface[], descuento: number, iva: number) 
       {/* COLECCIÓN DE ELEMENTOS */}
       {items.map((item, index) => (
         <View style={ComponentStyles.table.body_row} key={`elemento_${index}`}>
-          <Text style={ComponentStyles.table.body_name}>
+          <Text style={[ComponentStyles.table.body_text, ComponentStyles.table.body_name]}>
             {item.name}
           </Text>
-          <Text style={ComponentStyles.table.body_quantity}>
+          <Text style={[ComponentStyles.table.body_text, ComponentStyles.table.body_quantity]}>
             {item.quantity}
           </Text>
-          <Text style={ComponentStyles.table.body_price}>
+          <Text style={[ComponentStyles.table.body_text, ComponentStyles.table.body_price]}>
             {FormatoDinero(item.price)}
           </Text>
-          <Text style={ComponentStyles.table.body_total}>
+          <Text style={[ComponentStyles.table.body_text, ComponentStyles.table.body_amount]}>
             {FormatoDinero(item.price * item.quantity)}
           </Text>
         </View>
@@ -179,7 +190,8 @@ const TableComponent = (items: ItemInterface[], descuento: number, iva: number) 
   </View>
 );
 
-const TABLE_BORDER_COLOR = "#000000";
+const MAIN_COLOR = "#1CACFF";
+const TABLE_BORDER_COLOR = "#2DABFF";
 const TABLE_TEXT_SIZE = 12;
 
 const ComponentStyles = {
@@ -196,9 +208,9 @@ const ComponentStyles = {
       marginBottom: 20,
     },
     header_title: {
-      fontSize: 24,
+      fontSize: 22,
       textAlign: "right",
-      color: "slategray",
+      color: MAIN_COLOR,
     },
     header_logo: {
       width: 100,
@@ -226,23 +238,39 @@ const ComponentStyles = {
     column: {
       width: "48%",
     },
+    column_right: {
+      textAlign: "right",
+    },
     text: {
       fontSize: 12,
       lineHeight: 1.5,
+    },
+    text_title: {
+      fontSize: 12,
+      fontWeight: 1500,
+      lineHeight: 1.5,
+      color: MAIN_COLOR,
+      borderBottomColor: MAIN_COLOR,
+      borderBottomWidth: 1,
     },
   }),
   table: StyleSheet.create({
     header_row: {
       flexDirection: "row",
-      backgroundColor: "gray",
       borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
     },
+    header_text: {
+      color: MAIN_COLOR,
+      fontSize: TABLE_TEXT_SIZE,
+      fontWeight: 1500,
+      borderRightColor: TABLE_BORDER_COLOR,
+      borderRightWidth: 1,
+      paddingLeft: 8,
+    },
     header_name: {
       width: "55%",
-      color: "white",
-      fontSize: TABLE_TEXT_SIZE,
       textAlign: "left",
       borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
@@ -250,26 +278,20 @@ const ComponentStyles = {
     },
     header_quantity: {
       width: "10%",
-      color: "white",
-      fontSize: TABLE_TEXT_SIZE,
+      textAlign: "right",
       borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
-      textAlign: "right",
       paddingRight: 8,
     },
     header_price: {
       width: "15%",
-      color: "white",
-      fontSize: TABLE_TEXT_SIZE,
+      textAlign: "right",
       borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
-      textAlign: "right",
       paddingRight: 8,
     },
-    header_total: {
+    header_amount: {
       width: "20%",
-      color: "white",
-      fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
       paddingRight: 8,
     },
@@ -285,9 +307,11 @@ const ComponentStyles = {
       textAlign: "center",
       paddingLeft: 8,
     },
+    body_text: {
+      fontSize: TABLE_TEXT_SIZE,
+    },
     body_name: {
       width: "55%",
-      fontSize: TABLE_TEXT_SIZE,
       textAlign: "left",
       borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
@@ -295,7 +319,6 @@ const ComponentStyles = {
     },
     body_quantity: {
       width: "10%",
-      fontSize: TABLE_TEXT_SIZE,
       borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
       textAlign: "right",
@@ -303,21 +326,18 @@ const ComponentStyles = {
     },
     body_price: {
       width: "15%",
-      fontSize: TABLE_TEXT_SIZE,
       borderRightColor: TABLE_BORDER_COLOR,
       borderRightWidth: 1,
       textAlign: "right",
       paddingRight: 8,
     },
-    body_total: {
+    body_amount: {
       width: "20%",
-      fontSize: TABLE_TEXT_SIZE,
       textAlign: "right",
       paddingRight: 8,
     },
     footer_row: {
       flexDirection: "row",
-      backgroundColor: "lightgray",
       borderBottomColor: TABLE_BORDER_COLOR,
       borderBottomWidth: 1,
       alignItems: "center",
