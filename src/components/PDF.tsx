@@ -25,6 +25,8 @@ export default function PDF(props: PreviewPropsInterface) {
 
           {TableComponent(props.items, props.form.descuento, props.form.iva)}
 
+          {DocFooter()}
+
           <Text style={ComponentStyles.document.pageNumber} render={({ pageNumber, totalPages }) => (
             `${pageNumber} / ${totalPages}`
           )} fixed />
@@ -190,6 +192,21 @@ const TableComponent = (items: ItemInterface[], descuento: number, iva: number) 
   </View>
 );
 
+/**
+ * Subcomponente con el footer del documento.
+ * @returns Componente.
+ */
+const DocFooter = () => (
+  <View style={ComponentStyles.document.footer}>
+    <Text style={ComponentStyles.document.footer_title}>
+      Observación
+    </Text>
+    <Text style={ComponentStyles.document.footer_text}>
+      Se debe pagar el 50% de forma adelantada. El 50% restante se deberá pagar a los 30 días.
+    </Text>
+  </View>
+);
+
 const MAIN_COLOR = "#1CACFF";
 const TABLE_BORDER_COLOR = "#2DABFF";
 const TABLE_TEXT_SIZE = 12;
@@ -197,6 +214,7 @@ const TABLE_TEXT_SIZE = 12;
 const ComponentStyles = {
   document: StyleSheet.create({
     body: {
+      height: "100%",
       paddingTop: 20,
       paddingBottom: 20,
       paddingHorizontal: 40,
@@ -218,6 +236,25 @@ const ComponentStyles = {
     image: {
       marginVertical: 15,
       marginHorizontal: 100,
+    },
+    footer: {
+      position: "absolute",
+      bottom: 80,
+      left: 40,
+      right: 40,
+    },
+    footer_title: {
+      fontSize: 12,
+      fontWeight: 1500,
+      lineHeight: 1.5,
+      color: MAIN_COLOR,
+      borderBottomColor: MAIN_COLOR,
+      borderBottomWidth: 1,
+    },
+    footer_text: {
+      fontSize: 12,
+      lineHeight: 1.5,
+      color: "grey",
     },
     pageNumber: {
       position: "absolute",
